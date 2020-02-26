@@ -8,30 +8,30 @@
 
 #define dead 1
 #define live 0
-#define row 80		//¶¨ÒåµØÍ¼ÁÐ 
-#define line 20		//¶¨ÒåµØÍ¼ÐÐ 
-#define EASY 75		// ÄÑ¶È 
+#define row 80		//å®šä¹‰åœ°å›¾åˆ— 
+#define line 20		//å®šä¹‰åœ°å›¾è¡Œ 
+#define EASY 75		// éš¾åº¦ 
 #define NORMAL 50
 #define HARD 30
-#define PLAYER_POS 20	//Íæ¼Ò³õÊ¼ÁÐÊý 
-//¡ö¡ï
-int play(int n); //ÓÎÏ·wÖ´ÐÐº¯Êý
-void player(int x);  //¿ØÖÆµÄÈËÎï
-void printall();	//´òÓ¡È«²¿ÓÎÏ·½çÃæ 
-void barrier(int x1,int y);		//Éú³ÉÕÏ°­Îï 
-void mapmove(int n);		//µØÍ¼µÄÒÆ¶¯ 
-int judge(int x);			//ÅÐ¶ÏÈËÎïÊÇ·ñËÀÍö 
-char map[line][row]={{0}};		//¶¨ÒåÈ«²¿µØÍ¼ 
-int start();			//¿ªÊ¼½çÃæ 
-void result(int score);		//½áÊø½çÃæ 
-void gotoxy(int x, int y);		//ÒÆ¶¯¹â±ê 
-void hidden();				//Òþ²Ø¹â±ê 
-struct circlemap{				//Ã¿¸öÕÏ°­Îï 
+#define PLAYER_POS 20	//çŽ©å®¶åˆå§‹åˆ—æ•° 
+//â– â˜…
+int play(int n); //æ¸¸æˆwæ‰§è¡Œå‡½æ•°
+void player(int x);  //æŽ§åˆ¶çš„äººç‰©
+void printall();	//æ‰“å°å…¨éƒ¨æ¸¸æˆç•Œé¢ 
+void barrier(int x1,int y);		//ç”Ÿæˆéšœç¢ç‰© 
+void mapmove(int n);		//åœ°å›¾çš„ç§»åŠ¨ 
+int judge(int x);			//åˆ¤æ–­äººç‰©æ˜¯å¦æ­»äº¡ 
+char map[line][row]={{0}};		//å®šä¹‰å…¨éƒ¨åœ°å›¾ 
+int start();			//å¼€å§‹ç•Œé¢ 
+void result(int score);		//ç»“æŸç•Œé¢ 
+void gotoxy(int x, int y);		//ç§»åŠ¨å…‰æ ‡ 
+void hidden();				//éšè—å…‰æ ‡ 
+struct circlemap{				//æ¯ä¸ªéšœç¢ç‰© 
 	int m;
 	int y;
 }y[5]={{0}};
 
-int main()				//Ö÷º¯Êý 
+int main()				//ä¸»å‡½æ•° 
 {
 	int i,n=0;
 	while(1){
@@ -50,12 +50,12 @@ int main()				//Ö÷º¯Êý
 	return 0;
 }
 
-void hidden()//Òþ²Ø¹â±ê
+void hidden()//éšè—å…‰æ ‡
 {
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cci;
     GetConsoleCursorInfo(hOut,&cci);
-    cci.bVisible=0;//¸³1ÎªÏÔÊ¾£¬¸³0ÎªÒþ²Ø
+    cci.bVisible=0;//èµ‹1ä¸ºæ˜¾ç¤ºï¼Œèµ‹0ä¸ºéšè—
     SetConsoleCursorInfo(hOut,&cci);
 }
 
@@ -64,7 +64,7 @@ void hidden()//Òþ²Ø¹â±ê
 
 
 
-				//ÓÎÏ·º¯Êý 
+				//æ¸¸æˆå‡½æ•° 
 
 
 int p=0;
@@ -75,7 +75,7 @@ void mapmove(int n)
 		if(n%20==0)
 		{
 		int s;                       
-		srand(time(NULL));	                  //Éú³ÉËæ»úÊýÀ´±íÊ¾ÕÏ°­ÎïµÄËæ»ú±ä»¯ 
+		srand(time(NULL));	                  //ç”Ÿæˆéšæœºæ•°æ¥è¡¨ç¤ºéšœç¢ç‰©çš„éšæœºå˜åŒ– 
 		s=rand()%11;
 			y[p].m=s;
 			y[p].y=70;
@@ -88,14 +88,14 @@ void mapmove(int n)
 
 
 
-void barrier(int x1,int y)				//ÕÏ°­Îï 
+void barrier(int x1,int y)				//éšœç¢ç‰© 
 {
 	int i,k;
 	for(i=x1;i>=0;i--){
 		if(y>=10){
 		
 		gotoxy(y-10,i);
-		printf("¡ö");
+		printf("â– ");
 	}
 		gotoxy(y,i);
 		printf("  ");
@@ -105,14 +105,14 @@ void barrier(int x1,int y)				//ÕÏ°­Îï
 			if(y>=10){
 		
 		gotoxy(y-10,i);
-		printf("¡ö");
+		printf("â– ");
 	}
 		gotoxy(y,i);
 		printf("  ");
 		}
 }
 
-void gotoxy(int x, int y)				//ÒÆ¶¯¹â±ê 
+void gotoxy(int x, int y)				//ç§»åŠ¨å…‰æ ‡ 
 {
     CONSOLE_SCREEN_BUFFER_INFO    csbiInfo;
     HANDLE    hConsoleOut;
